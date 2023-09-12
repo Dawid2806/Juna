@@ -4,10 +4,11 @@
 
 ---
 
-## 🌍 Języki / Languages
+## 🌍 Języki / Languages / Sprachen
 
 - [🇵🇱 Polski](#-polski)
 - [🇬🇧 English](#-english)
+- [🇩🇪 Deutsch](#-deutsch)
 
 ---
 
@@ -27,8 +28,18 @@ Aplikacja dla mało znanych dziennikarzy, gdzie mogą publikować swoje artykuł
 
 ### 🛠 Technologie:
 
-- 🖥 Backend: Back4App (Parse Server, GraphQL)
-- 🌐 Frontend: Next.js, Apollo Client, Formik, Yup, TailwindCSS
+#### Backend:
+
+- Back4App (Parse Server, GraphQL)
+- Nhost: Platforma zapewniająca autentykację, przechowywanie i funkcje serwerowe.
+
+#### Frontend:
+
+- Next.js
+- Apollo Client
+- Formik
+- Yup
+- TailwindCSS
 
 ---
 
@@ -48,5 +59,46 @@ An app for lesser-known journalists where they can publish their articles. Users
 
 ### 🛠 Technologies:
 
-- 🖥 Backend: Back4App (Parse Server, GraphQL)
-- 🌐 Frontend: Next.js, Apollo Client, Formik, Yup, TailwindCSS
+#### Backend:
+
+- Back4App (Parse Server, GraphQL)
+- Nhost: Backend-as-a-Service platform providing authentication, storage, and server functions.
+
+#### Frontend:
+
+- Next.js
+- Apollo Client
+- Formik
+- Yup
+- TailwindCSS
+
+---
+
+## 🇩🇪 Deutsch:
+
+### 📝 Beschreibung:
+
+Eine App für weniger bekannte Journalisten, in der sie ihre Artikel veröffentlichen können. Benutzer können Artikel kommentieren und bewerten, und Journalisten können ein Premium-Konto erwerben, um ihre eigenen Anzeigen in ihren Artikeln zu platzieren.
+
+### 🚀 Funktionen:
+
+- 🔐 Registrierung und Anmeldung für Benutzer und Journalisten.
+- ✍️ Veröffentlichung, Bearbeitung und Löschen von Artikeln durch Journalisten.
+- 💬 Kommentieren und Bewerten von Artikeln durch Benutzer.
+- 💎 Möglichkeit für Journalisten, ein Premium-Konto zu erwerben.
+- 📂 Kategorien und Unterkategorien für Artikel.
+
+### 🛠 Technologien:
+
+#### Backend:
+
+- Back4App (Parse Server, GraphQL)
+- Nhost: Backend-as-a-Service-Plattform, die Authentifizierung, Speicherung und Serverfunktionen bietet.
+
+#### Frontend:
+
+- Next.js
+- Apollo Client
+- Formik
+- Yup
+- TailwindCSS
