@@ -1,21 +1,7 @@
 import { useGetCategoryQuery } from "@/gql/graphql";
-import { gql, useQuery } from "@apollo/client";
-
-const GET_BOOKS = gql`
-  query MyQuery {
-    users_connection {
-      edges {
-        node {
-          displayName
-        }
-      }
-    }
-  }
-`;
 
 export default function Home() {
   const { loading, data, error } = useGetCategoryQuery({});
-  console.log(error);
   return (
     <main>
       <h1>elo</h1>

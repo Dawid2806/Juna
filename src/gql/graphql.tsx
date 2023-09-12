@@ -9,16 +9,19 @@ const defaultOptions = {} as const;
 export type GetCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCategoryQuery = { __typename?: 'query_root', Category: Array<{ __typename?: 'Category', name: string, Sub_category: Array<{ __typename?: 'Sub_category', name: string, id: any }> }> };
+export type GetCategoryQuery = { __typename?: 'query_root', Category: Array<{ __typename?: 'Category', name: string, id: any, slug: string, Sub_category: Array<{ __typename?: 'Sub_category', name: string, id: any, slug: string }> }> };
 
 
 export const GetCategoryDocument = gql`
     query GetCategory {
   Category {
     name
+    id
+    slug
     Sub_category {
       name
       id
+      slug
     }
   }
 }

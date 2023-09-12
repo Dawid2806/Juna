@@ -1,9 +1,12 @@
 query GetCategory {
   Category {
     name
+    id
+    slug
     Sub_category {
       name
       id
+      slug
     }
   }
 }
