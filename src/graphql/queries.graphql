@@ -1,0 +1,9 @@
+query GetCategory {
+  Category {
+    name
+    Sub_category {
+      name
+      id
+    }
+  }
+}
