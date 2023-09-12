@@ -11,6 +11,32 @@ export type GetCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCategoryQuery = { __typename?: 'query_root', Category: Array<{ __typename?: 'Category', name: string, id: any, slug: string, Sub_category: Array<{ __typename?: 'Sub_category', name: string, id: any, slug: string }> }> };
 
+export type GetCategoryBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<String_Comparison_Exp>;
+}>;
+
+
+export type GetCategoryBySlugQuery = { __typename?: 'query_root', Category: Array<{ __typename?: 'Category', name: string, id: any, Sub_category: Array<{ __typename?: 'Sub_category', name: string, id: any, slug: string }> }> };
+
+export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllPostsQuery = { __typename?: 'query_root', Category: Array<{ __typename?: 'Category', slug: string, name: string, id: any, Sub_category: Array<{ __typename?: 'Sub_category', id: any, name: string, slug: string, Posts: Array<{ __typename?: 'Posts', title: string, slug: string, likes: any, dislikes: any, content: string }> }> }> };
+
+export type GetAllPostInSubCategoryBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<String_Comparison_Exp>;
+}>;
+
+
+export type GetAllPostInSubCategoryBySlugQuery = { __typename?: 'query_root', Sub_category: Array<{ __typename?: 'Sub_category', name: string, slug: string, id: any, Posts: Array<{ __typename?: 'Posts', content: string, dislikes: any, likes: any, slug: string, title: string }> }> };
+
+export type GetPostBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<String_Comparison_Exp>;
+}>;
+
+
+export type GetPostBySlugQuery = { __typename?: 'query_root', Posts: Array<{ __typename?: 'Posts', content: string, dislikes: any, likes: any, slug: string, title: string }> };
+
 
 export const GetCategoryDocument = gql`
     query GetCategory {
@@ -53,6 +79,178 @@ export function useGetCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetCategoryQueryHookResult = ReturnType<typeof useGetCategoryQuery>;
 export type GetCategoryLazyQueryHookResult = ReturnType<typeof useGetCategoryLazyQuery>;
 export type GetCategoryQueryResult = Apollo.QueryResult<GetCategoryQuery, GetCategoryQueryVariables>;
+export const GetCategoryBySlugDocument = gql`
+    query GetCategoryBySlug($slug: String_comparison_exp) {
+  Category(where: {slug: $slug}) {
+    name
+    id
+    Sub_category {
+      name
+      id
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetCategoryBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetCategoryBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoryBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoryBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetCategoryBySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetCategoryBySlugQuery, GetCategoryBySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoryBySlugQuery, GetCategoryBySlugQueryVariables>(GetCategoryBySlugDocument, options);
+      }
+export function useGetCategoryBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryBySlugQuery, GetCategoryBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoryBySlugQuery, GetCategoryBySlugQueryVariables>(GetCategoryBySlugDocument, options);
+        }
+export type GetCategoryBySlugQueryHookResult = ReturnType<typeof useGetCategoryBySlugQuery>;
+export type GetCategoryBySlugLazyQueryHookResult = ReturnType<typeof useGetCategoryBySlugLazyQuery>;
+export type GetCategoryBySlugQueryResult = Apollo.QueryResult<GetCategoryBySlugQuery, GetCategoryBySlugQueryVariables>;
+export const GetAllPostsDocument = gql`
+    query GetAllPosts {
+  Category {
+    slug
+    name
+    id
+    Sub_category {
+      id
+      name
+      slug
+      Posts {
+        title
+        slug
+        likes
+        dislikes
+        content
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllPostsQuery__
+ *
+ * To run a query within a React component, call `useGetAllPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+      }
+export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+        }
+export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
+export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
+export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export const GetAllPostInSubCategoryBySlugDocument = gql`
+    query GetAllPostInSubCategoryBySlug($slug: String_comparison_exp) {
+  Sub_category(where: {slug: $slug}) {
+    name
+    slug
+    id
+    Posts {
+      content
+      dislikes
+      likes
+      slug
+      title
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllPostInSubCategoryBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetAllPostInSubCategoryBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPostInSubCategoryBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPostInSubCategoryBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetAllPostInSubCategoryBySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPostInSubCategoryBySlugQuery, GetAllPostInSubCategoryBySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPostInSubCategoryBySlugQuery, GetAllPostInSubCategoryBySlugQueryVariables>(GetAllPostInSubCategoryBySlugDocument, options);
+      }
+export function useGetAllPostInSubCategoryBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostInSubCategoryBySlugQuery, GetAllPostInSubCategoryBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPostInSubCategoryBySlugQuery, GetAllPostInSubCategoryBySlugQueryVariables>(GetAllPostInSubCategoryBySlugDocument, options);
+        }
+export type GetAllPostInSubCategoryBySlugQueryHookResult = ReturnType<typeof useGetAllPostInSubCategoryBySlugQuery>;
+export type GetAllPostInSubCategoryBySlugLazyQueryHookResult = ReturnType<typeof useGetAllPostInSubCategoryBySlugLazyQuery>;
+export type GetAllPostInSubCategoryBySlugQueryResult = Apollo.QueryResult<GetAllPostInSubCategoryBySlugQuery, GetAllPostInSubCategoryBySlugQueryVariables>;
+export const GetPostBySlugDocument = gql`
+    query GetPostBySlug($slug: String_comparison_exp) {
+  Posts(where: {slug: $slug}) {
+    content
+    dislikes
+    likes
+    slug
+    title
+  }
+}
+    `;
+
+/**
+ * __useGetPostBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetPostBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetPostBySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+      }
+export function useGetPostBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+        }
+export type GetPostBySlugQueryHookResult = ReturnType<typeof useGetPostBySlugQuery>;
+export type GetPostBySlugLazyQueryHookResult = ReturnType<typeof useGetPostBySlugLazyQuery>;
+export type GetPostBySlugQueryResult = Apollo.QueryResult<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -60,6 +258,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  numeric: any;
   uuid: any;
 };
 
@@ -167,6 +366,160 @@ export type Category_Update_Column =
   /** placeholder (do not use) */
   | '_PLACEHOLDER';
 
+/** columns and relationships of "Posts" */
+export type Posts = {
+  __typename?: 'Posts';
+  /** An object relationship */
+  Sub_category?: Maybe<Sub_Category>;
+  content: Scalars['String'];
+  dislikes: Scalars['numeric'];
+  likes: Scalars['numeric'];
+  slug: Scalars['String'];
+  sub_category_id?: Maybe<Scalars['uuid']>;
+  title: Scalars['String'];
+};
+
+/** order by aggregate values of table "Posts" */
+export type Posts_Aggregate_Order_By = {
+  avg?: InputMaybe<Posts_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Posts_Max_Order_By>;
+  min?: InputMaybe<Posts_Min_Order_By>;
+  stddev?: InputMaybe<Posts_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Posts_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Posts_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Posts_Sum_Order_By>;
+  var_pop?: InputMaybe<Posts_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Posts_Var_Samp_Order_By>;
+  variance?: InputMaybe<Posts_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "Posts" */
+export type Posts_Avg_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "Posts". All fields are combined with a logical 'AND'. */
+export type Posts_Bool_Exp = {
+  Sub_category?: InputMaybe<Sub_Category_Bool_Exp>;
+  _and?: InputMaybe<Array<Posts_Bool_Exp>>;
+  _not?: InputMaybe<Posts_Bool_Exp>;
+  _or?: InputMaybe<Array<Posts_Bool_Exp>>;
+  content?: InputMaybe<String_Comparison_Exp>;
+  dislikes?: InputMaybe<Numeric_Comparison_Exp>;
+  likes?: InputMaybe<Numeric_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  sub_category_id?: InputMaybe<Uuid_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "Posts" */
+export type Posts_Max_Order_By = {
+  content?: InputMaybe<Order_By>;
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  sub_category_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "Posts" */
+export type Posts_Min_Order_By = {
+  content?: InputMaybe<Order_By>;
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  sub_category_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "Posts". */
+export type Posts_Order_By = {
+  Sub_category?: InputMaybe<Sub_Category_Order_By>;
+  content?: InputMaybe<Order_By>;
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  sub_category_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "Posts" */
+export type Posts_Select_Column =
+  /** column name */
+  | 'content'
+  /** column name */
+  | 'dislikes'
+  /** column name */
+  | 'likes'
+  /** column name */
+  | 'slug'
+  /** column name */
+  | 'sub_category_id'
+  /** column name */
+  | 'title';
+
+/** order by stddev() on columns of table "Posts" */
+export type Posts_Stddev_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "Posts" */
+export type Posts_Stddev_Pop_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "Posts" */
+export type Posts_Stddev_Samp_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "Posts" */
+export type Posts_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Posts_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Posts_Stream_Cursor_Value_Input = {
+  content?: InputMaybe<Scalars['String']>;
+  dislikes?: InputMaybe<Scalars['numeric']>;
+  likes?: InputMaybe<Scalars['numeric']>;
+  slug?: InputMaybe<Scalars['String']>;
+  sub_category_id?: InputMaybe<Scalars['uuid']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+/** order by sum() on columns of table "Posts" */
+export type Posts_Sum_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
+/** order by var_pop() on columns of table "Posts" */
+export type Posts_Var_Pop_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "Posts" */
+export type Posts_Var_Samp_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "Posts" */
+export type Posts_Variance_Order_By = {
+  dislikes?: InputMaybe<Order_By>;
+  likes?: InputMaybe<Order_By>;
+};
+
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['String']>;
@@ -205,10 +558,22 @@ export type Sub_Category = {
   __typename?: 'Sub_category';
   /** An object relationship */
   Category?: Maybe<Category>;
+  /** An array relationship */
+  Posts: Array<Posts>;
   category_id?: Maybe<Scalars['uuid']>;
   id: Scalars['uuid'];
   name: Scalars['String'];
   slug: Scalars['String'];
+};
+
+
+/** columns and relationships of "Sub_category" */
+export type Sub_Category_PostsArgs = {
+  distinct_on?: InputMaybe<Array<Posts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Posts_Order_By>>;
+  where?: InputMaybe<Posts_Bool_Exp>;
 };
 
 /** order by aggregate values of table "Sub_category" */
@@ -228,6 +593,7 @@ export type Sub_Category_Arr_Rel_Insert_Input = {
 /** Boolean expression to filter rows from the table "Sub_category". All fields are combined with a logical 'AND'. */
 export type Sub_Category_Bool_Exp = {
   Category?: InputMaybe<Category_Bool_Exp>;
+  Posts?: InputMaybe<Posts_Bool_Exp>;
   _and?: InputMaybe<Array<Sub_Category_Bool_Exp>>;
   _not?: InputMaybe<Sub_Category_Bool_Exp>;
   _or?: InputMaybe<Array<Sub_Category_Bool_Exp>>;
@@ -286,6 +652,7 @@ export type Sub_Category_On_Conflict = {
 /** Ordering options when selecting data from "Sub_category". */
 export type Sub_Category_Order_By = {
   Category?: InputMaybe<Category_Order_By>;
+  Posts_aggregate?: InputMaybe<Posts_Aggregate_Order_By>;
   category_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
@@ -372,6 +739,19 @@ export type Mutation_Root_Insert_Sub_Category_OneArgs = {
   on_conflict?: InputMaybe<Sub_Category_On_Conflict>;
 };
 
+/** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
+export type Numeric_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['numeric']>;
+  _gt?: InputMaybe<Scalars['numeric']>;
+  _gte?: InputMaybe<Scalars['numeric']>;
+  _in?: InputMaybe<Array<Scalars['numeric']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['numeric']>;
+  _lte?: InputMaybe<Scalars['numeric']>;
+  _neq?: InputMaybe<Scalars['numeric']>;
+  _nin?: InputMaybe<Array<Scalars['numeric']>>;
+};
+
 /** column ordering options */
 export type Order_By =
   /** in ascending order, nulls last */
@@ -394,6 +774,10 @@ export type Query_Root = {
   /** fetch data from the table: "Category" using primary key columns */
   Category_by_pk?: Maybe<Category>;
   /** An array relationship */
+  Posts: Array<Posts>;
+  /** fetch data from the table: "Posts" using primary key columns */
+  Posts_by_pk?: Maybe<Posts>;
+  /** An array relationship */
   Sub_category: Array<Sub_Category>;
   /** fetch data from the table: "Sub_category" using primary key columns */
   Sub_category_by_pk?: Maybe<Sub_Category>;
@@ -411,6 +795,20 @@ export type Query_Root_CategoryArgs = {
 
 export type Query_Root_Category_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+export type Query_Root_PostsArgs = {
+  distinct_on?: InputMaybe<Array<Posts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Posts_Order_By>>;
+  where?: InputMaybe<Posts_Bool_Exp>;
+};
+
+
+export type Query_Root_Posts_By_PkArgs = {
+  title: Scalars['String'];
 };
 
 
@@ -435,6 +833,12 @@ export type Subscription_Root = {
   Category_by_pk?: Maybe<Category>;
   /** fetch data from the table in a streaming manner: "Category" */
   Category_stream: Array<Category>;
+  /** An array relationship */
+  Posts: Array<Posts>;
+  /** fetch data from the table: "Posts" using primary key columns */
+  Posts_by_pk?: Maybe<Posts>;
+  /** fetch data from the table in a streaming manner: "Posts" */
+  Posts_stream: Array<Posts>;
   /** An array relationship */
   Sub_category: Array<Sub_Category>;
   /** fetch data from the table: "Sub_category" using primary key columns */
@@ -462,6 +866,27 @@ export type Subscription_Root_Category_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Category_Stream_Cursor_Input>>;
   where?: InputMaybe<Category_Bool_Exp>;
+};
+
+
+export type Subscription_Root_PostsArgs = {
+  distinct_on?: InputMaybe<Array<Posts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Posts_Order_By>>;
+  where?: InputMaybe<Posts_Bool_Exp>;
+};
+
+
+export type Subscription_Root_Posts_By_PkArgs = {
+  title: Scalars['String'];
+};
+
+
+export type Subscription_Root_Posts_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Posts_Stream_Cursor_Input>>;
+  where?: InputMaybe<Posts_Bool_Exp>;
 };
 
 
@@ -978,6 +1403,732 @@ export default {
           "name": "Int"
         },
         {
+          "kind": "OBJECT",
+          "name": "Posts",
+          "fields": [
+            {
+              "name": "Sub_category",
+              "type": {
+                "kind": "OBJECT",
+                "name": "Sub_category",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "content",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "numeric",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "numeric",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "slug",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "sub_category_id",
+              "type": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "title",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            }
+          ],
+          "interfaces": []
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_aggregate_order_by",
+          "inputFields": [
+            {
+              "name": "avg",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_avg_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "count",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "max",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_max_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "min",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_min_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "stddev",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_stddev_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "stddev_pop",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_stddev_pop_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "stddev_samp",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_stddev_samp_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "sum",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_sum_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "var_pop",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_var_pop_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "var_samp",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_var_samp_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "variance",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_variance_order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_avg_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_bool_exp",
+          "inputFields": [
+            {
+              "name": "Sub_category",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Sub_category_bool_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_and",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "Posts_bool_exp",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_not",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_bool_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_or",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "Posts_bool_exp",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "content",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "numeric_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "numeric_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "slug",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "sub_category_id",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "uuid_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "title",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_max_order_by",
+          "inputFields": [
+            {
+              "name": "content",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "slug",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "sub_category_id",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "title",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_min_order_by",
+          "inputFields": [
+            {
+              "name": "content",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "slug",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "sub_category_id",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "title",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_order_by",
+          "inputFields": [
+            {
+              "name": "Sub_category",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Sub_category_order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "content",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "slug",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "sub_category_id",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "title",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "ENUM",
+          "name": "Posts_select_column",
+          "enumValues": [
+            {
+              "name": "content"
+            },
+            {
+              "name": "dislikes"
+            },
+            {
+              "name": "likes"
+            },
+            {
+              "name": "slug"
+            },
+            {
+              "name": "sub_category_id"
+            },
+            {
+              "name": "title"
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_stddev_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_stddev_pop_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_stddev_samp_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_stream_cursor_input",
+          "inputFields": [
+            {
+              "name": "initial_value",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "Posts_stream_cursor_value_input",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "ordering",
+              "type": {
+                "kind": "ENUM",
+                "name": "cursor_ordering",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_stream_cursor_value_input",
+          "inputFields": [
+            {
+              "name": "content",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "slug",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "sub_category_id",
+              "type": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            {
+              "name": "title",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_sum_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_var_pop_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_var_samp_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Posts_variance_order_by",
+          "inputFields": [
+            {
+              "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "likes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
           "kind": "SCALAR",
           "name": "String"
         },
@@ -1165,6 +2316,77 @@ export default {
               "args": []
             },
             {
+              "name": "Posts",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Posts",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "args": [
+                {
+                  "name": "distinct_on",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "Posts_select_column",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "limit",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "order_by",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "Posts_order_by",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "where",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "Posts_bool_exp",
+                    "ofType": null
+                  }
+                }
+              ]
+            },
+            {
               "name": "category_id",
               "type": {
                 "kind": "SCALAR",
@@ -1282,6 +2504,14 @@ export default {
               "type": {
                 "kind": "INPUT_OBJECT",
                 "name": "Category_bool_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "Posts",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_bool_exp",
                 "ofType": null
               }
             },
@@ -1579,6 +2809,14 @@ export default {
               }
             },
             {
+              "name": "Posts_aggregate",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Posts_aggregate_order_by",
+                "ofType": null
+              }
+            },
+            {
               "name": "category_id",
               "type": {
                 "kind": "ENUM",
@@ -1850,6 +3088,100 @@ export default {
           "interfaces": []
         },
         {
+          "kind": "SCALAR",
+          "name": "numeric"
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "numeric_comparison_exp",
+          "inputFields": [
+            {
+              "name": "_eq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_in",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "numeric",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_is_null",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_neq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nin",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "numeric",
+                    "ofType": null
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
           "kind": "ENUM",
           "name": "order_by",
           "enumValues": [
@@ -1963,6 +3295,98 @@ export default {
                     "ofType": {
                       "kind": "SCALAR",
                       "name": "uuid",
+                      "ofType": null
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Posts",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Posts",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "args": [
+                {
+                  "name": "distinct_on",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "Posts_select_column",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "limit",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "order_by",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "Posts_order_by",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "where",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "Posts_bool_exp",
+                    "ofType": null
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Posts_by_pk",
+              "type": {
+                "kind": "OBJECT",
+                "name": "Posts",
+                "ofType": null
+              },
+              "args": [
+                {
+                  "name": "title",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
                       "ofType": null
                     }
                   }
@@ -2207,6 +3631,150 @@ export default {
                   "type": {
                     "kind": "INPUT_OBJECT",
                     "name": "Category_bool_exp",
+                    "ofType": null
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Posts",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Posts",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "args": [
+                {
+                  "name": "distinct_on",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "Posts_select_column",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "limit",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "order_by",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "Posts_order_by",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "where",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "Posts_bool_exp",
+                    "ofType": null
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Posts_by_pk",
+              "type": {
+                "kind": "OBJECT",
+                "name": "Posts",
+                "ofType": null
+              },
+              "args": [
+                {
+                  "name": "title",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Posts_stream",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Posts",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "args": [
+                {
+                  "name": "batch_size",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  }
+                },
+                {
+                  "name": "cursor",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "LIST",
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "Posts_stream_cursor_input",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "where",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "Posts_bool_exp",
                     "ofType": null
                   }
                 }
@@ -2473,8 +4041,25 @@ export default {
     Category_Order_By: Category_Order_By,
     Category_Stream_Cursor_Input: Category_Stream_Cursor_Input,
     Category_Stream_Cursor_Value_Input: Category_Stream_Cursor_Value_Input,
+    Posts: Posts,
+    Posts_Aggregate_Order_By: Posts_Aggregate_Order_By,
+    Posts_Avg_Order_By: Posts_Avg_Order_By,
+    Posts_Bool_Exp: Posts_Bool_Exp,
+    Posts_Max_Order_By: Posts_Max_Order_By,
+    Posts_Min_Order_By: Posts_Min_Order_By,
+    Posts_Order_By: Posts_Order_By,
+    Posts_Stddev_Order_By: Posts_Stddev_Order_By,
+    Posts_Stddev_Pop_Order_By: Posts_Stddev_Pop_Order_By,
+    Posts_Stddev_Samp_Order_By: Posts_Stddev_Samp_Order_By,
+    Posts_Stream_Cursor_Input: Posts_Stream_Cursor_Input,
+    Posts_Stream_Cursor_Value_Input: Posts_Stream_Cursor_Value_Input,
+    Posts_Sum_Order_By: Posts_Sum_Order_By,
+    Posts_Var_Pop_Order_By: Posts_Var_Pop_Order_By,
+    Posts_Var_Samp_Order_By: Posts_Var_Samp_Order_By,
+    Posts_Variance_Order_By: Posts_Variance_Order_By,
     String_Comparison_Exp: String_Comparison_Exp,
     Sub_Category: Sub_Category,
+    Sub_Category_PostsArgs: Sub_Category_PostsArgs,
     Sub_Category_Aggregate_Order_By: Sub_Category_Aggregate_Order_By,
     Sub_Category_Arr_Rel_Insert_Input: Sub_Category_Arr_Rel_Insert_Input,
     Sub_Category_Bool_Exp: Sub_Category_Bool_Exp,
@@ -2491,15 +4076,21 @@ export default {
     Mutation_Root_Insert_Category_OneArgs: Mutation_Root_Insert_Category_OneArgs,
     Mutation_Root_Insert_Sub_CategoryArgs: Mutation_Root_Insert_Sub_CategoryArgs,
     Mutation_Root_Insert_Sub_Category_OneArgs: Mutation_Root_Insert_Sub_Category_OneArgs,
+    Numeric_Comparison_Exp: Numeric_Comparison_Exp,
     Query_Root: Query_Root,
     Query_Root_CategoryArgs: Query_Root_CategoryArgs,
     Query_Root_Category_By_PkArgs: Query_Root_Category_By_PkArgs,
+    Query_Root_PostsArgs: Query_Root_PostsArgs,
+    Query_Root_Posts_By_PkArgs: Query_Root_Posts_By_PkArgs,
     Query_Root_Sub_CategoryArgs: Query_Root_Sub_CategoryArgs,
     Query_Root_Sub_Category_By_PkArgs: Query_Root_Sub_Category_By_PkArgs,
     Subscription_Root: Subscription_Root,
     Subscription_Root_CategoryArgs: Subscription_Root_CategoryArgs,
     Subscription_Root_Category_By_PkArgs: Subscription_Root_Category_By_PkArgs,
     Subscription_Root_Category_StreamArgs: Subscription_Root_Category_StreamArgs,
+    Subscription_Root_PostsArgs: Subscription_Root_PostsArgs,
+    Subscription_Root_Posts_By_PkArgs: Subscription_Root_Posts_By_PkArgs,
+    Subscription_Root_Posts_StreamArgs: Subscription_Root_Posts_StreamArgs,
     Subscription_Root_Sub_CategoryArgs: Subscription_Root_Sub_CategoryArgs,
     Subscription_Root_Sub_Category_By_PkArgs: Subscription_Root_Sub_Category_By_PkArgs,
     Subscription_Root_Sub_Category_StreamArgs: Subscription_Root_Sub_Category_StreamArgs,

@@ -8,7 +8,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function Nav() {
+export const Nav = () => {
   const [isLogged, setIsLogged] = useState(false);
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -107,4 +107,4 @@ export function Nav() {
       )}
     </Disclosure>
   );
-}
+};

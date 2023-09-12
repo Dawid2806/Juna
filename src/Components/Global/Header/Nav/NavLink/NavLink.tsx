@@ -22,7 +22,7 @@ export const NavLink = () => {
             {cat?.Sub_category.map((subCat) => (
               <Link
                 key={subCat.id}
-                href={`/${cat.name}/${subCat.name}`}
+                href={`/${cat.name}/${subCat.slug}`}
                 className="block px-4 py-2 text-gray-700 hover:bg-gray-200"
               >
                 {subCat.name}

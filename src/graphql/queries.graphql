@@ -1,3 +1,4 @@
+# for all category
 query GetCategory {
   Category {
     name
@@ -8,5 +9,69 @@ query GetCategory {
       id
       slug
     }
+  }
+}
+
+# Category by slug
+
+query GetCategoryBySlug($slug: String_comparison_exp) {
+  Category(where: { slug: $slug }) {
+    name
+    id
+    Sub_category {
+      name
+      id
+      slug
+    }
+  }
+}
+
+# Get All Post in Category and in SubCategory
+
+query GetAllPosts {
+  Category {
+    slug
+    name
+    id
+    Sub_category {
+      id
+      name
+      slug
+      Posts {
+        title
+        slug
+        likes
+        dislikes
+        content
+      }
+    }
+  }
+}
+
+# Get All Post in sub category by slug
+
+query GetAllPostInSubCategoryBySlug($slug: String_comparison_exp) {
+  Sub_category(where: { slug: $slug }) {
+    name
+    slug
+    id
+    Posts {
+      content
+      dislikes
+      likes
+      slug
+      title
+    }
+  }
+}
+
+# Get Single post
+query GetPostBySlug($slug: String_comparison_exp) {
+  Posts(where: { slug: $slug }) {
+    content
+    dislikes
+    likes
+    slug
+    title
   }
 }
