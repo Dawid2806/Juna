@@ -9,17 +9,27 @@ import {
   GetPostBySlugQueryVariables,
 } from "@/gql/graphql";
 import { PostsProps } from "../../../../../Types";
+import Link from "next/link";
 
-const PostPage = ({ title, content, dislikes, likes }: PostsProps) => {
+interface PostPageProps {
+  data: PostsProps;
+  subCategory: string;
+  category: string;
+}
+
+const PostPage = ({ data, subCategory, category }: PostPageProps) => {
   return (
     <div>
-      {title}
+      <Link className="block" href={`/${category}/${subCategory}`}>
+        Back
+      </Link>
+      {data.title}
       <hr />
-      {content}
+      {data.content}
       <hr />
-      {dislikes}
+      {data.dislikes}
       <hr />
-      {likes}
+      {data.likes}
     </div>
   );
 };
@@ -65,6 +75,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData = data.Posts[0];
 
   return {
-    props: postData,
+    props: {
+      category: params?.category,
+      subCategory: params?.subcategory,
+      data: postData,
+    },
   };
 };

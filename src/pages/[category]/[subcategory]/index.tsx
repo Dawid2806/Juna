@@ -10,17 +10,30 @@ import {
   GetCategoryQuery,
 } from "@/gql/graphql";
 import { SubCategory } from "../../../../Types";
+import Link from "next/link";
 
 interface SubCategoryPageProps {
   data: SubCategory;
+  params: string;
 }
 
-const SubCategoryPage = ({ data }: SubCategoryPageProps) => {
+const SubCategoryPage = ({ data, params }: SubCategoryPageProps) => {
   return (
     <div>
+      <Link className="block" href={`/${params}`}>
+        Back
+      </Link>
       CategoryPage
+      {data.slug}
+      {params}
       {data.Posts.map((post) => {
-        return <div key={post.slug}>{post.title}</div>;
+        return (
+          <div key={post.slug}>
+            <Link href={`/${params}/${data.slug}/${post.slug}`}>
+              {post.title}
+            </Link>
+          </div>
+        );
       })}
     </div>
   );
@@ -70,6 +83,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       data: data.Sub_category[0],
+      params: params.category,
     },
   };
 };

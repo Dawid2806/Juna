@@ -1,9 +1,10 @@
+import Link from "next/link";
 import React from "react";
 
 export const FooterIcon = () => {
   return (
     <li>
-      <a
+      <Link
         href="/"
         rel="noreferrer"
         target="_blank"
@@ -22,7 +23,7 @@ export const FooterIcon = () => {
             clipRule="evenodd"
           />
         </svg>
-      </a>
+      </Link>
     </li>
   );
 };
