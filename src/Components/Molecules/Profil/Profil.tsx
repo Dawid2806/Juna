@@ -5,11 +5,15 @@ import {
   DropdownMenu,
   DropdownTrigger,
   NavbarContent,
+  Link,
 } from "@nextui-org/react";
-import Link from "next/link";
+import { useSignOut, useUserData } from "@nhost/react";
 import React from "react";
 
 export const Profil = () => {
+  const userData = useUserData();
+  const { signOut } = useSignOut();
+
   return (
     <NavbarContent as="div" justify="end">
       <Dropdown placement="bottom-end">
@@ -19,20 +23,28 @@ export const Profil = () => {
             as="button"
             className="transition-transform"
             color="secondary"
-            name="Jason Hughes"
+            name={userData?.displayName}
             size="sm"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            src={userData?.avatarUrl}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
+          <DropdownItem key="user" className="h-14 gap-2">
             <p className="font-semibold">Signed in as</p>
-            <p className="font-semibold">zoey@example.com</p>
+            <p className="font-semibold">{userData?.displayName}</p>
           </DropdownItem>
-          <DropdownItem key="settings">My Settings</DropdownItem>
+          <DropdownItem key="profile">
+            <Link href="/profil">Profil</Link>
+          </DropdownItem>
 
-          <DropdownItem key="logout" color="danger">
-            Log Out
+          <DropdownItem
+            key="logout"
+            onClick={() => {
+              signOut();
+            }}
+            color="danger"
+          >
+            Wyloguj się
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>

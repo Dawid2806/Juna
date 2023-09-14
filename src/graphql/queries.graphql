@@ -75,3 +75,20 @@ query GetPostBySlug($slug: String_comparison_exp) {
     title
   }
 }
+
+query GetAllUsers {
+  users {
+    id
+    displayName
+  }
+}
+
+query GetUserByID($id: uuid!) {
+  user(id: $id) {
+    displayName
+    avatarUrl
+    createdAt
+    email
+    lastSeen
+  }
+}

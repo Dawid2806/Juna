@@ -18,11 +18,13 @@ import NextLink from "next/link";
 import { useGetCategoryQuery } from "@/gql/graphql";
 import { ChevronDown } from "@/Components/Atoms/CustomIcons/Icons";
 import { Profil } from "../Profil/Profil";
+import { useAuthenticationStatus } from "@nhost/react";
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isLogged, setIsLogged] = React.useState(false);
   const { data, loading, error } = useGetCategoryQuery();
+  const { isAuthenticated, isLoading } = useAuthenticationStatus();
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
@@ -75,7 +77,7 @@ export const Nav = () => {
           ))}
       </NavbarContent>
       <NavbarContent justify="end">
-        {!isLogged ? (
+        {!isAuthenticated ? (
           <NavbarItem>
             <Button as={Link} color="primary" href="/login" variant="shadow">
               Sign Up

@@ -37,6 +37,18 @@ export type GetPostBySlugQueryVariables = Exact<{
 
 export type GetPostBySlugQuery = { __typename?: 'query_root', Posts: Array<{ __typename?: 'Posts', content: string, dislikes: any, likes: any, slug: string, title: string }> };
 
+export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUsersQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: any, displayName: string }> };
+
+export type GetUserByIdQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetUserByIdQuery = { __typename?: 'query_root', user?: { __typename?: 'users', displayName: string, avatarUrl: string, createdAt: any, email?: any | null, lastSeen?: any | null } | null };
+
 
 export const GetCategoryDocument = gql`
     query GetCategory {
@@ -251,6 +263,80 @@ export function useGetPostBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetPostBySlugQueryHookResult = ReturnType<typeof useGetPostBySlugQuery>;
 export type GetPostBySlugLazyQueryHookResult = ReturnType<typeof useGetPostBySlugLazyQuery>;
 export type GetPostBySlugQueryResult = Apollo.QueryResult<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
+export const GetAllUsersDocument = gql`
+    query GetAllUsers {
+  users {
+    id
+    displayName
+  }
+}
+    `;
+
+/**
+ * __useGetAllUsersQuery__
+ *
+ * To run a query within a React component, call `useGetAllUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
+      }
+export function useGetAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
+        }
+export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
+export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
+export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
+export const GetUserByIdDocument = gql`
+    query GetUserByID($id: uuid!) {
+  user(id: $id) {
+    displayName
+    avatarUrl
+    createdAt
+    email
+    lastSeen
+  }
+}
+    `;
+
+/**
+ * __useGetUserByIdQuery__
+ *
+ * To run a query within a React component, call `useGetUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+      }
+export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
+        }
+export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
+export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
+export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -258,8 +344,24 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  citext: any;
+  jsonb: any;
   numeric: any;
+  timestamptz: any;
   uuid: any;
+};
+
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Boolean']>;
+  _gt?: InputMaybe<Scalars['Boolean']>;
+  _gte?: InputMaybe<Scalars['Boolean']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Boolean']>;
+  _lte?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Scalars['Boolean']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
 /** columns and relationships of "Category" */
@@ -691,12 +793,73 @@ export type Sub_Category_Update_Column =
   /** placeholder (do not use) */
   | '_PLACEHOLDER';
 
+/** Boolean expression to compare columns of type "citext". All fields are combined with logical 'AND'. */
+export type Citext_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['citext']>;
+  _gt?: InputMaybe<Scalars['citext']>;
+  _gte?: InputMaybe<Scalars['citext']>;
+  /** does the column match the given case-insensitive pattern */
+  _ilike?: InputMaybe<Scalars['citext']>;
+  _in?: InputMaybe<Array<Scalars['citext']>>;
+  /** does the column match the given POSIX regular expression, case insensitive */
+  _iregex?: InputMaybe<Scalars['citext']>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  /** does the column match the given pattern */
+  _like?: InputMaybe<Scalars['citext']>;
+  _lt?: InputMaybe<Scalars['citext']>;
+  _lte?: InputMaybe<Scalars['citext']>;
+  _neq?: InputMaybe<Scalars['citext']>;
+  /** does the column NOT match the given case-insensitive pattern */
+  _nilike?: InputMaybe<Scalars['citext']>;
+  _nin?: InputMaybe<Array<Scalars['citext']>>;
+  /** does the column NOT match the given POSIX regular expression, case insensitive */
+  _niregex?: InputMaybe<Scalars['citext']>;
+  /** does the column NOT match the given pattern */
+  _nlike?: InputMaybe<Scalars['citext']>;
+  /** does the column NOT match the given POSIX regular expression, case sensitive */
+  _nregex?: InputMaybe<Scalars['citext']>;
+  /** does the column NOT match the given SQL regular expression */
+  _nsimilar?: InputMaybe<Scalars['citext']>;
+  /** does the column match the given POSIX regular expression, case sensitive */
+  _regex?: InputMaybe<Scalars['citext']>;
+  /** does the column match the given SQL regular expression */
+  _similar?: InputMaybe<Scalars['citext']>;
+};
+
 /** ordering argument of a cursor */
 export type Cursor_Ordering =
   /** ascending ordering of the cursor */
   | 'ASC'
   /** descending ordering of the cursor */
   | 'DESC';
+
+export type Jsonb_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type Jsonb_Comparison_Exp = {
+  _cast?: InputMaybe<Jsonb_Cast_Exp>;
+  /** is the column contained in the given json value */
+  _contained_in?: InputMaybe<Scalars['jsonb']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['jsonb']>;
+  _eq?: InputMaybe<Scalars['jsonb']>;
+  _gt?: InputMaybe<Scalars['jsonb']>;
+  _gte?: InputMaybe<Scalars['jsonb']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: InputMaybe<Scalars['String']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: InputMaybe<Array<Scalars['String']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: InputMaybe<Array<Scalars['String']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['jsonb']>;
+  _lte?: InputMaybe<Scalars['jsonb']>;
+  _neq?: InputMaybe<Scalars['jsonb']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']>>;
+};
 
 /** mutation root */
 export type Mutation_Root = {
@@ -781,6 +944,10 @@ export type Query_Root = {
   Sub_category: Array<Sub_Category>;
   /** fetch data from the table: "Sub_category" using primary key columns */
   Sub_category_by_pk?: Maybe<Sub_Category>;
+  /** fetch data from the table: "auth.users" using primary key columns */
+  user?: Maybe<Users>;
+  /** fetch data from the table: "auth.users" */
+  users: Array<Users>;
 };
 
 
@@ -825,6 +992,20 @@ export type Query_Root_Sub_Category_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
+export type Query_Root_UserArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_Root_UsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "Category" */
@@ -845,6 +1026,12 @@ export type Subscription_Root = {
   Sub_category_by_pk?: Maybe<Sub_Category>;
   /** fetch data from the table in a streaming manner: "Sub_category" */
   Sub_category_stream: Array<Sub_Category>;
+  /** fetch data from the table: "auth.users" using primary key columns */
+  user?: Maybe<Users>;
+  /** fetch data from the table: "auth.users" */
+  users: Array<Users>;
+  /** fetch data from the table in a streaming manner: "auth.users" */
+  users_stream: Array<Users>;
 };
 
 
@@ -910,6 +1097,227 @@ export type Subscription_Root_Sub_Category_StreamArgs = {
   where?: InputMaybe<Sub_Category_Bool_Exp>;
 };
 
+
+export type Subscription_Root_UserArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_Root_UsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+
+export type Subscription_Root_Users_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Users_Stream_Cursor_Input>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+export type Timestamptz_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['timestamptz']>;
+  _gt?: InputMaybe<Scalars['timestamptz']>;
+  _gte?: InputMaybe<Scalars['timestamptz']>;
+  _in?: InputMaybe<Array<Scalars['timestamptz']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timestamptz']>;
+  _lte?: InputMaybe<Scalars['timestamptz']>;
+  _neq?: InputMaybe<Scalars['timestamptz']>;
+  _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
+};
+
+/** User account information. Don't modify its structure as Hasura Auth relies on it to function properly. */
+export type Users = {
+  __typename?: 'users';
+  activeMfaType?: Maybe<Scalars['String']>;
+  avatarUrl: Scalars['String'];
+  createdAt: Scalars['timestamptz'];
+  currentChallenge?: Maybe<Scalars['String']>;
+  defaultRole: Scalars['String'];
+  disabled: Scalars['Boolean'];
+  displayName: Scalars['String'];
+  email?: Maybe<Scalars['citext']>;
+  emailVerified: Scalars['Boolean'];
+  id: Scalars['uuid'];
+  isAnonymous: Scalars['Boolean'];
+  lastSeen?: Maybe<Scalars['timestamptz']>;
+  locale: Scalars['String'];
+  metadata?: Maybe<Scalars['jsonb']>;
+  newEmail?: Maybe<Scalars['citext']>;
+  otpHash?: Maybe<Scalars['String']>;
+  otpHashExpiresAt: Scalars['timestamptz'];
+  otpMethodLastUsed?: Maybe<Scalars['String']>;
+  passwordHash?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  phoneNumberVerified: Scalars['Boolean'];
+  ticket?: Maybe<Scalars['String']>;
+  ticketExpiresAt: Scalars['timestamptz'];
+  totpSecret?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['timestamptz'];
+};
+
+
+/** User account information. Don't modify its structure as Hasura Auth relies on it to function properly. */
+export type Users_MetadataArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+/** Boolean expression to filter rows from the table "auth.users". All fields are combined with a logical 'AND'. */
+export type Users_Bool_Exp = {
+  _and?: InputMaybe<Array<Users_Bool_Exp>>;
+  _not?: InputMaybe<Users_Bool_Exp>;
+  _or?: InputMaybe<Array<Users_Bool_Exp>>;
+  activeMfaType?: InputMaybe<String_Comparison_Exp>;
+  avatarUrl?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  currentChallenge?: InputMaybe<String_Comparison_Exp>;
+  defaultRole?: InputMaybe<String_Comparison_Exp>;
+  disabled?: InputMaybe<Boolean_Comparison_Exp>;
+  displayName?: InputMaybe<String_Comparison_Exp>;
+  email?: InputMaybe<Citext_Comparison_Exp>;
+  emailVerified?: InputMaybe<Boolean_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  isAnonymous?: InputMaybe<Boolean_Comparison_Exp>;
+  lastSeen?: InputMaybe<Timestamptz_Comparison_Exp>;
+  locale?: InputMaybe<String_Comparison_Exp>;
+  metadata?: InputMaybe<Jsonb_Comparison_Exp>;
+  newEmail?: InputMaybe<Citext_Comparison_Exp>;
+  otpHash?: InputMaybe<String_Comparison_Exp>;
+  otpHashExpiresAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  otpMethodLastUsed?: InputMaybe<String_Comparison_Exp>;
+  passwordHash?: InputMaybe<String_Comparison_Exp>;
+  phoneNumber?: InputMaybe<String_Comparison_Exp>;
+  phoneNumberVerified?: InputMaybe<Boolean_Comparison_Exp>;
+  ticket?: InputMaybe<String_Comparison_Exp>;
+  ticketExpiresAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  totpSecret?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "auth.users". */
+export type Users_Order_By = {
+  activeMfaType?: InputMaybe<Order_By>;
+  avatarUrl?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  currentChallenge?: InputMaybe<Order_By>;
+  defaultRole?: InputMaybe<Order_By>;
+  disabled?: InputMaybe<Order_By>;
+  displayName?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
+  emailVerified?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isAnonymous?: InputMaybe<Order_By>;
+  lastSeen?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  metadata?: InputMaybe<Order_By>;
+  newEmail?: InputMaybe<Order_By>;
+  otpHash?: InputMaybe<Order_By>;
+  otpHashExpiresAt?: InputMaybe<Order_By>;
+  otpMethodLastUsed?: InputMaybe<Order_By>;
+  passwordHash?: InputMaybe<Order_By>;
+  phoneNumber?: InputMaybe<Order_By>;
+  phoneNumberVerified?: InputMaybe<Order_By>;
+  ticket?: InputMaybe<Order_By>;
+  ticketExpiresAt?: InputMaybe<Order_By>;
+  totpSecret?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "auth.users" */
+export type Users_Select_Column =
+  /** column name */
+  | 'activeMfaType'
+  /** column name */
+  | 'avatarUrl'
+  /** column name */
+  | 'createdAt'
+  /** column name */
+  | 'currentChallenge'
+  /** column name */
+  | 'defaultRole'
+  /** column name */
+  | 'disabled'
+  /** column name */
+  | 'displayName'
+  /** column name */
+  | 'email'
+  /** column name */
+  | 'emailVerified'
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'isAnonymous'
+  /** column name */
+  | 'lastSeen'
+  /** column name */
+  | 'locale'
+  /** column name */
+  | 'metadata'
+  /** column name */
+  | 'newEmail'
+  /** column name */
+  | 'otpHash'
+  /** column name */
+  | 'otpHashExpiresAt'
+  /** column name */
+  | 'otpMethodLastUsed'
+  /** column name */
+  | 'passwordHash'
+  /** column name */
+  | 'phoneNumber'
+  /** column name */
+  | 'phoneNumberVerified'
+  /** column name */
+  | 'ticket'
+  /** column name */
+  | 'ticketExpiresAt'
+  /** column name */
+  | 'totpSecret'
+  /** column name */
+  | 'updatedAt';
+
+/** Streaming cursor of the table "users" */
+export type Users_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Users_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Users_Stream_Cursor_Value_Input = {
+  activeMfaType?: InputMaybe<Scalars['String']>;
+  avatarUrl?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
+  currentChallenge?: InputMaybe<Scalars['String']>;
+  defaultRole?: InputMaybe<Scalars['String']>;
+  disabled?: InputMaybe<Scalars['Boolean']>;
+  displayName?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['citext']>;
+  emailVerified?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  isAnonymous?: InputMaybe<Scalars['Boolean']>;
+  lastSeen?: InputMaybe<Scalars['timestamptz']>;
+  locale?: InputMaybe<Scalars['String']>;
+  metadata?: InputMaybe<Scalars['jsonb']>;
+  newEmail?: InputMaybe<Scalars['citext']>;
+  otpHash?: InputMaybe<Scalars['String']>;
+  otpHashExpiresAt?: InputMaybe<Scalars['timestamptz']>;
+  otpMethodLastUsed?: InputMaybe<Scalars['String']>;
+  passwordHash?: InputMaybe<Scalars['String']>;
+  phoneNumber?: InputMaybe<Scalars['String']>;
+  phoneNumberVerified?: InputMaybe<Scalars['Boolean']>;
+  ticket?: InputMaybe<Scalars['String']>;
+  ticketExpiresAt?: InputMaybe<Scalars['timestamptz']>;
+  totpSecret?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']>;
+};
+
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -940,6 +1348,96 @@ export default {
         {
           "kind": "SCALAR",
           "name": "Boolean"
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Boolean_comparison_exp",
+          "inputFields": [
+            {
+              "name": "_eq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_in",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_is_null",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_neq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nin",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  }
+                }
+              }
+            }
+          ]
         },
         {
           "kind": "OBJECT",
@@ -2941,6 +3439,180 @@ export default {
           ]
         },
         {
+          "kind": "SCALAR",
+          "name": "citext"
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "citext_comparison_exp",
+          "inputFields": [
+            {
+              "name": "_eq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_ilike",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_in",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "citext",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_iregex",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_is_null",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_like",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_neq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nilike",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nin",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "citext",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_niregex",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nlike",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nregex",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nsimilar",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_regex",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_similar",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
           "kind": "ENUM",
           "name": "cursor_ordering",
           "enumValues": [
@@ -2949,6 +3621,174 @@ export default {
             },
             {
               "name": "DESC"
+            }
+          ]
+        },
+        {
+          "kind": "SCALAR",
+          "name": "jsonb"
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "jsonb_cast_exp",
+          "inputFields": [
+            {
+              "name": "String",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "jsonb_comparison_exp",
+          "inputFields": [
+            {
+              "name": "_cast",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "jsonb_cast_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_contained_in",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_contains",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_eq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_has_key",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_has_keys_all",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_has_keys_any",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_in",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "jsonb",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_is_null",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_neq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nin",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "jsonb",
+                    "ofType": null
+                  }
+                }
+              }
             }
           ]
         },
@@ -3484,6 +4324,98 @@ export default {
                   }
                 }
               ]
+            },
+            {
+              "name": "user",
+              "type": {
+                "kind": "OBJECT",
+                "name": "users",
+                "ofType": null
+              },
+              "args": [
+                {
+                  "name": "id",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "uuid",
+                      "ofType": null
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "users",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "users",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "args": [
+                {
+                  "name": "distinct_on",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "users_select_column",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "limit",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "order_by",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "users_order_by",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "where",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_bool_exp",
+                    "ofType": null
+                  }
+                }
+              ]
             }
           ],
           "interfaces": []
@@ -3923,9 +4855,1287 @@ export default {
                   }
                 }
               ]
+            },
+            {
+              "name": "user",
+              "type": {
+                "kind": "OBJECT",
+                "name": "users",
+                "ofType": null
+              },
+              "args": [
+                {
+                  "name": "id",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "uuid",
+                      "ofType": null
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "users",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "users",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "args": [
+                {
+                  "name": "distinct_on",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "users_select_column",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "limit",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "name": "order_by",
+                  "type": {
+                    "kind": "LIST",
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "users_order_by",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "where",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_bool_exp",
+                    "ofType": null
+                  }
+                }
+              ]
+            },
+            {
+              "name": "users_stream",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "users",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "args": [
+                {
+                  "name": "batch_size",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  }
+                },
+                {
+                  "name": "cursor",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "LIST",
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "users_stream_cursor_input",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "where",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_bool_exp",
+                    "ofType": null
+                  }
+                }
+              ]
             }
           ],
           "interfaces": []
+        },
+        {
+          "kind": "SCALAR",
+          "name": "timestamptz"
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "timestamptz_comparison_exp",
+          "inputFields": [
+            {
+              "name": "_eq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_gte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_in",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "timestamptz",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_is_null",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_lte",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_neq",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_nin",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "timestamptz",
+                    "ofType": null
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "users",
+          "fields": [
+            {
+              "name": "activeMfaType",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "avatarUrl",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "createdAt",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "timestamptz",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "currentChallenge",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "defaultRole",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "displayName",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "email",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "emailVerified",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "uuid",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "isAnonymous",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "lastSeen",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "locale",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "metadata",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              },
+              "args": [
+                {
+                  "name": "path",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              ]
+            },
+            {
+              "name": "newEmail",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "otpHash",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "otpHashExpiresAt",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "timestamptz",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "otpMethodLastUsed",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "passwordHash",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "phoneNumber",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "phoneNumberVerified",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "ticket",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "ticketExpiresAt",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "timestamptz",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
+              "name": "totpSecret",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "args": []
+            },
+            {
+              "name": "updatedAt",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "timestamptz",
+                  "ofType": null
+                }
+              },
+              "args": []
+            }
+          ],
+          "interfaces": []
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "users_bool_exp",
+          "inputFields": [
+            {
+              "name": "_and",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_bool_exp",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "_not",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "users_bool_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "_or",
+              "type": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_bool_exp",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            {
+              "name": "activeMfaType",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "avatarUrl",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "createdAt",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "timestamptz_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "currentChallenge",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "defaultRole",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Boolean_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "displayName",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "email",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "citext_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "emailVerified",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Boolean_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "id",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "uuid_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "isAnonymous",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Boolean_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "lastSeen",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "timestamptz_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "locale",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "metadata",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "jsonb_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "newEmail",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "citext_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpHash",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpHashExpiresAt",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "timestamptz_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpMethodLastUsed",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "passwordHash",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "phoneNumber",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "phoneNumberVerified",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "Boolean_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "ticket",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "ticketExpiresAt",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "timestamptz_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "totpSecret",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
+              "name": "updatedAt",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "timestamptz_comparison_exp",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "users_order_by",
+          "inputFields": [
+            {
+              "name": "activeMfaType",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "avatarUrl",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "createdAt",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "currentChallenge",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "defaultRole",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "displayName",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "email",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "emailVerified",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "id",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "isAnonymous",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "lastSeen",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "locale",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "metadata",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "newEmail",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpHash",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpHashExpiresAt",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpMethodLastUsed",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "passwordHash",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "phoneNumber",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "phoneNumberVerified",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "ticket",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "ticketExpiresAt",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "totpSecret",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "updatedAt",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "ENUM",
+          "name": "users_select_column",
+          "enumValues": [
+            {
+              "name": "activeMfaType"
+            },
+            {
+              "name": "avatarUrl"
+            },
+            {
+              "name": "createdAt"
+            },
+            {
+              "name": "currentChallenge"
+            },
+            {
+              "name": "defaultRole"
+            },
+            {
+              "name": "disabled"
+            },
+            {
+              "name": "displayName"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "emailVerified"
+            },
+            {
+              "name": "id"
+            },
+            {
+              "name": "isAnonymous"
+            },
+            {
+              "name": "lastSeen"
+            },
+            {
+              "name": "locale"
+            },
+            {
+              "name": "metadata"
+            },
+            {
+              "name": "newEmail"
+            },
+            {
+              "name": "otpHash"
+            },
+            {
+              "name": "otpHashExpiresAt"
+            },
+            {
+              "name": "otpMethodLastUsed"
+            },
+            {
+              "name": "passwordHash"
+            },
+            {
+              "name": "phoneNumber"
+            },
+            {
+              "name": "phoneNumberVerified"
+            },
+            {
+              "name": "ticket"
+            },
+            {
+              "name": "ticketExpiresAt"
+            },
+            {
+              "name": "totpSecret"
+            },
+            {
+              "name": "updatedAt"
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "users_stream_cursor_input",
+          "inputFields": [
+            {
+              "name": "initial_value",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_stream_cursor_value_input",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "ordering",
+              "type": {
+                "kind": "ENUM",
+                "name": "cursor_ordering",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "users_stream_cursor_value_input",
+          "inputFields": [
+            {
+              "name": "activeMfaType",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "avatarUrl",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "createdAt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "currentChallenge",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "defaultRole",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "displayName",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "email",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "emailVerified",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "id",
+              "type": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            {
+              "name": "isAnonymous",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "lastSeen",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "locale",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "metadata",
+              "type": {
+                "kind": "SCALAR",
+                "name": "jsonb",
+                "ofType": null
+              }
+            },
+            {
+              "name": "newEmail",
+              "type": {
+                "kind": "SCALAR",
+                "name": "citext",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpHash",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpHashExpiresAt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "otpMethodLastUsed",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "passwordHash",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "phoneNumber",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "phoneNumberVerified",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "name": "ticket",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "ticketExpiresAt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            {
+              "name": "totpSecret",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "updatedAt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            }
+          ]
         },
         {
           "kind": "SCALAR",
@@ -4031,6 +6241,7 @@ export default {
   } as const,
   types: {} as {
     Scalars: Scalars,
+    Boolean_Comparison_Exp: Boolean_Comparison_Exp,
     Category: Category,
     Category_Sub_CategoryArgs: Category_Sub_CategoryArgs,
     Category_Bool_Exp: Category_Bool_Exp,
@@ -4071,6 +6282,9 @@ export default {
     Sub_Category_Order_By: Sub_Category_Order_By,
     Sub_Category_Stream_Cursor_Input: Sub_Category_Stream_Cursor_Input,
     Sub_Category_Stream_Cursor_Value_Input: Sub_Category_Stream_Cursor_Value_Input,
+    Citext_Comparison_Exp: Citext_Comparison_Exp,
+    Jsonb_Cast_Exp: Jsonb_Cast_Exp,
+    Jsonb_Comparison_Exp: Jsonb_Comparison_Exp,
     Mutation_Root: Mutation_Root,
     Mutation_Root_Insert_CategoryArgs: Mutation_Root_Insert_CategoryArgs,
     Mutation_Root_Insert_Category_OneArgs: Mutation_Root_Insert_Category_OneArgs,
@@ -4084,6 +6298,8 @@ export default {
     Query_Root_Posts_By_PkArgs: Query_Root_Posts_By_PkArgs,
     Query_Root_Sub_CategoryArgs: Query_Root_Sub_CategoryArgs,
     Query_Root_Sub_Category_By_PkArgs: Query_Root_Sub_Category_By_PkArgs,
+    Query_Root_UserArgs: Query_Root_UserArgs,
+    Query_Root_UsersArgs: Query_Root_UsersArgs,
     Subscription_Root: Subscription_Root,
     Subscription_Root_CategoryArgs: Subscription_Root_CategoryArgs,
     Subscription_Root_Category_By_PkArgs: Subscription_Root_Category_By_PkArgs,
@@ -4094,6 +6310,16 @@ export default {
     Subscription_Root_Sub_CategoryArgs: Subscription_Root_Sub_CategoryArgs,
     Subscription_Root_Sub_Category_By_PkArgs: Subscription_Root_Sub_Category_By_PkArgs,
     Subscription_Root_Sub_Category_StreamArgs: Subscription_Root_Sub_Category_StreamArgs,
+    Subscription_Root_UserArgs: Subscription_Root_UserArgs,
+    Subscription_Root_UsersArgs: Subscription_Root_UsersArgs,
+    Subscription_Root_Users_StreamArgs: Subscription_Root_Users_StreamArgs,
+    Timestamptz_Comparison_Exp: Timestamptz_Comparison_Exp,
+    Users: Users,
+    Users_MetadataArgs: Users_MetadataArgs,
+    Users_Bool_Exp: Users_Bool_Exp,
+    Users_Order_By: Users_Order_By,
+    Users_Stream_Cursor_Input: Users_Stream_Cursor_Input,
+    Users_Stream_Cursor_Value_Input: Users_Stream_Cursor_Value_Input,
     Uuid_Comparison_Exp: Uuid_Comparison_Exp
   }
 }
