@@ -34,7 +34,13 @@ export const Profil = () => {
             <p className="font-semibold">{userData?.displayName}</p>
           </DropdownItem>
           <DropdownItem key="profile">
-            <Link href="/profil">Profil</Link>
+            <Link
+              href="/myprofil
+            "
+              as="a"
+            >
+              Profil
+            </Link>
           </DropdownItem>
 
           <DropdownItem
