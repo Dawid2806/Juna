@@ -1,5 +1,5 @@
+import { Nav } from "@/Components/Molecules/Nav/Nav";
 import React from "react";
-import { Nav } from "./Nav/Nav";
 
 export const Header = () => {
   return (

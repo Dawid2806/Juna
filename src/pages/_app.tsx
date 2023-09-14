@@ -2,8 +2,8 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { NhostProvider, NhostClient } from "@nhost/nextjs";
 import { NhostApolloProvider } from "@nhost/react-apollo";
-import { Layout } from "@/Components/Global/Layout/Layout";
 import { NextUIProvider } from "@nextui-org/react";
+import { Layout } from "@/Components/Organisms/Layout/Layout";
 
 const nhost = new NhostClient({
   subdomain: process.env.NEXT_PUBLIC_NHOST_SUBDOMAIN || "",

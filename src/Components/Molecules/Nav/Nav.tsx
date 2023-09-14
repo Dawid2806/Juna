@@ -15,9 +15,9 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import NextLink from "next/link";
-import { ChevronDown } from "../../CustomIcons/Icons";
 import { useGetCategoryQuery } from "@/gql/graphql";
-import { Profil } from "../../AuthComponents/Profil";
+import { ChevronDown } from "@/Components/Atoms/CustomIcons/Icons";
+import { Profil } from "../Profil/Profil";
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);

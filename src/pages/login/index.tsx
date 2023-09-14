@@ -1,5 +1,5 @@
+import { RegisterForm } from "@/Components/Organisms/RegisterForm/Register";
 import React, { useState } from "react";
-import { RegisterForm } from "@/Components/Global/AuthComponents/Register";
 const Login = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   return (

@@ -1,8 +1,9 @@
 import { useSignUpEmailPassword } from "@nhost/react";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { CustomModal } from "../Modal/Modal";
 
 type FormData = {
   email: string;
@@ -22,7 +23,14 @@ const schema = yup
   .required();
 
 export const RegisterForm = ({}) => {
-  const { signUpEmailPassword, isError, error } = useSignUpEmailPassword();
+  const {
+    signUpEmailPassword,
+    needsEmailVerification,
+    isLoading,
+    isError,
+    error,
+  } = useSignUpEmailPassword();
+  const [showModal, setShowModal] = useState(false);
   const {
     register,
     handleSubmit,
@@ -33,13 +41,24 @@ export const RegisterForm = ({}) => {
   });
   const handleFormSubmit = async (data: FormData) => {
     await signUpEmailPassword(data.email, data.password);
+    if (needsEmailVerification) {
+      setShowModal(true);
+    }
     if (isError) {
       reset();
     }
   };
-
+  isError;
   return (
     <div className="">
+      {needsEmailVerification && (
+        <CustomModal
+          buttonTitle="ok"
+          title="Rejestracja zakonczona pomyslnie"
+          message="Twoja rejestracja przebiegła pomyslnie, pamietaj aby zweryfikowac swoj adres email "
+        />
+      )}
+
       <div className="flex min-h-full flex-col justify-center px-6  lg:px-8">
         <div className=" sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">

@@ -1,6 +1,6 @@
+import { FooterIcon } from "@/Components/Molecules/Footer/FooterIcon";
+import { FooterLink } from "@/Components/Molecules/Footer/FooterLink";
 import React from "react";
-import { FooterLink } from "./FooterLink";
-import { FooterIcon } from "./FooterIcon";
 
 export const Footer = () => {
   return (
