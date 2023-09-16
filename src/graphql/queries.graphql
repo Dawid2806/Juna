@@ -92,3 +92,18 @@ query GetUserByID($id: uuid!) {
     lastSeen
   }
 }
+
+query GetAllPostsinSubCategory {
+  Sub_category {
+    name
+    slug
+    Posts {
+      content
+      dislikes
+      likes
+      title
+      slug
+      img
+    }
+  }
+}

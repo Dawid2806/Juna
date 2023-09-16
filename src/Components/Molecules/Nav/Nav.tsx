@@ -22,9 +22,8 @@ import { useAuthenticationStatus } from "@nhost/react";
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isLogged, setIsLogged] = React.useState(false);
   const { data, loading, error } = useGetCategoryQuery();
-  const { isAuthenticated, isLoading } = useAuthenticationStatus();
+  const { isAuthenticated } = useAuthenticationStatus();
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
@@ -70,7 +69,11 @@ export const Nav = () => {
                 }}
               >
                 {category.Sub_category.map((sub) => (
-                  <DropdownItem key={sub.id}>{sub.name}</DropdownItem>
+                  <DropdownItem key={sub.id}>
+                    <Link href={`/${category.slug}/${sub.slug}`}>
+                      {sub.name}
+                    </Link>
+                  </DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>

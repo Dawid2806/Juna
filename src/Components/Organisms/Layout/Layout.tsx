@@ -8,7 +8,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="relative">
       <Header />
-      <div className="h-[100vh]">{children} </div>
+      <div className="">{children} </div>
       <Footer />
     </div>
   );

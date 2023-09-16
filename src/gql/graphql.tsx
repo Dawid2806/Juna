@@ -49,6 +49,11 @@ export type GetUserByIdQueryVariables = Exact<{
 
 export type GetUserByIdQuery = { __typename?: 'query_root', user?: { __typename?: 'users', displayName: string, avatarUrl: string, createdAt: any, email?: any | null, lastSeen?: any | null } | null };
 
+export type GetAllPostsinSubCategoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllPostsinSubCategoryQuery = { __typename?: 'query_root', Sub_category: Array<{ __typename?: 'Sub_category', name: string, slug: string, Posts: Array<{ __typename?: 'Posts', content: string, dislikes: any, likes: any, title: string, slug: string, img: string }> }> };
+
 
 export const GetCategoryDocument = gql`
     query GetCategory {
@@ -337,6 +342,49 @@ export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
 export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
 export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const GetAllPostsinSubCategoryDocument = gql`
+    query GetAllPostsinSubCategory {
+  Sub_category {
+    name
+    slug
+    Posts {
+      content
+      dislikes
+      likes
+      title
+      slug
+      img
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllPostsinSubCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetAllPostsinSubCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPostsinSubCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPostsinSubCategoryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPostsinSubCategoryQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPostsinSubCategoryQuery, GetAllPostsinSubCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPostsinSubCategoryQuery, GetAllPostsinSubCategoryQueryVariables>(GetAllPostsinSubCategoryDocument, options);
+      }
+export function useGetAllPostsinSubCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsinSubCategoryQuery, GetAllPostsinSubCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPostsinSubCategoryQuery, GetAllPostsinSubCategoryQueryVariables>(GetAllPostsinSubCategoryDocument, options);
+        }
+export type GetAllPostsinSubCategoryQueryHookResult = ReturnType<typeof useGetAllPostsinSubCategoryQuery>;
+export type GetAllPostsinSubCategoryLazyQueryHookResult = ReturnType<typeof useGetAllPostsinSubCategoryLazyQuery>;
+export type GetAllPostsinSubCategoryQueryResult = Apollo.QueryResult<GetAllPostsinSubCategoryQuery, GetAllPostsinSubCategoryQueryVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -475,6 +523,7 @@ export type Posts = {
   Sub_category?: Maybe<Sub_Category>;
   content: Scalars['String'];
   dislikes: Scalars['numeric'];
+  img: Scalars['String'];
   likes: Scalars['numeric'];
   slug: Scalars['String'];
   sub_category_id?: Maybe<Scalars['uuid']>;
@@ -510,6 +559,7 @@ export type Posts_Bool_Exp = {
   _or?: InputMaybe<Array<Posts_Bool_Exp>>;
   content?: InputMaybe<String_Comparison_Exp>;
   dislikes?: InputMaybe<Numeric_Comparison_Exp>;
+  img?: InputMaybe<String_Comparison_Exp>;
   likes?: InputMaybe<Numeric_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   sub_category_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -520,6 +570,7 @@ export type Posts_Bool_Exp = {
 export type Posts_Max_Order_By = {
   content?: InputMaybe<Order_By>;
   dislikes?: InputMaybe<Order_By>;
+  img?: InputMaybe<Order_By>;
   likes?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   sub_category_id?: InputMaybe<Order_By>;
@@ -530,6 +581,7 @@ export type Posts_Max_Order_By = {
 export type Posts_Min_Order_By = {
   content?: InputMaybe<Order_By>;
   dislikes?: InputMaybe<Order_By>;
+  img?: InputMaybe<Order_By>;
   likes?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   sub_category_id?: InputMaybe<Order_By>;
@@ -541,6 +593,7 @@ export type Posts_Order_By = {
   Sub_category?: InputMaybe<Sub_Category_Order_By>;
   content?: InputMaybe<Order_By>;
   dislikes?: InputMaybe<Order_By>;
+  img?: InputMaybe<Order_By>;
   likes?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   sub_category_id?: InputMaybe<Order_By>;
@@ -553,6 +606,8 @@ export type Posts_Select_Column =
   | 'content'
   /** column name */
   | 'dislikes'
+  /** column name */
+  | 'img'
   /** column name */
   | 'likes'
   /** column name */
@@ -592,6 +647,7 @@ export type Posts_Stream_Cursor_Input = {
 export type Posts_Stream_Cursor_Value_Input = {
   content?: InputMaybe<Scalars['String']>;
   dislikes?: InputMaybe<Scalars['numeric']>;
+  img?: InputMaybe<Scalars['String']>;
   likes?: InputMaybe<Scalars['numeric']>;
   slug?: InputMaybe<Scalars['String']>;
   sub_category_id?: InputMaybe<Scalars['uuid']>;
@@ -1938,6 +1994,18 @@ export default {
               "args": []
             },
             {
+              "name": "img",
+              "type": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "args": []
+            },
+            {
               "name": "likes",
               "type": {
                 "kind": "NON_NULL",
@@ -2166,6 +2234,14 @@ export default {
               }
             },
             {
+              "name": "img",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              }
+            },
+            {
               "name": "likes",
               "type": {
                 "kind": "INPUT_OBJECT",
@@ -2220,6 +2296,14 @@ export default {
               }
             },
             {
+              "name": "img",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
               "name": "likes",
               "type": {
                 "kind": "ENUM",
@@ -2267,6 +2351,14 @@ export default {
             },
             {
               "name": "dislikes",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
+              "name": "img",
               "type": {
                 "kind": "ENUM",
                 "name": "order_by",
@@ -2336,6 +2428,14 @@ export default {
               }
             },
             {
+              "name": "img",
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              }
+            },
+            {
               "name": "likes",
               "type": {
                 "kind": "ENUM",
@@ -2378,6 +2478,9 @@ export default {
             },
             {
               "name": "dislikes"
+            },
+            {
+              "name": "img"
             },
             {
               "name": "likes"
@@ -2501,6 +2604,14 @@ export default {
               "type": {
                 "kind": "SCALAR",
                 "name": "numeric",
+                "ofType": null
+              }
+            },
+            {
+              "name": "img",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
