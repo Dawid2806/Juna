@@ -83,7 +83,7 @@ export const Nav = () => {
 
       {/* Mobile nav */}
       {isOpenMobile && (
-        <div className="absolute bg-white w-full h-full top-0 left-0">
+        <div className="absolute z-50 bg-white w-full h-full top-0 left-0">
           <div>
             <div className="flex items-center justify-between flex-shrink-0 p-4">
               <Link href="#" title="" className="inline-flex">

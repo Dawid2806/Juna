@@ -1,6 +1,7 @@
 import { CategoryItem } from "@/Components/Molecules/CategoryItem/CategoryItem";
 import { CategoryList } from "@/Components/Organisms/CategoryList/CategoryList";
 import { useGetAllPostsinSubCategoryQuery } from "@/gql/graphql";
+
 import Link from "next/link";
 
 import React from "react";

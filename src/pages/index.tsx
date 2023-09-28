@@ -1,12 +1,12 @@
 import { Home } from "@/Components/Template/Home/Home";
-import { Test, Test2 } from "@/Components/Template/Test";
+import { Elo, Test } from "@/Components/Template/Test";
 
 const HomePage = () => {
   return (
     <>
-      <Test />
+      {/* <Test /> */}
       <Home />
-      <Test2 />
+      <Elo />
     </>
   );
 };
