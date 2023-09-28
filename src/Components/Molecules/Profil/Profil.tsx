@@ -1,59 +1,67 @@
-import {
-  Avatar,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  NavbarContent,
-  Link,
-} from "@nextui-org/react";
+import { Arrow } from "../../Atoms/SVG/Arrow";
+import { useState } from "react";
 import { useSignOut, useUserData } from "@nhost/react";
-import React from "react";
 
-export const Profil = () => {
+export const ProfilComponent = () => {
+  const [isOpen, setIsOpen] = useState(false); // lokalny stan przechowujący informację, czy dropdown jest otwarty
   const userData = useUserData();
   const { signOut } = useSignOut();
-
   return (
-    <NavbarContent as="div" justify="end">
-      <Dropdown placement="bottom-end">
-        <DropdownTrigger>
-          <Avatar
-            isBordered
-            as="button"
-            className="transition-transform"
-            color="secondary"
-            name={userData?.displayName}
-            size="sm"
-            src={userData?.avatarUrl}
-          />
-        </DropdownTrigger>
-        <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem key="user" className="h-14 gap-2">
-            <p className="font-semibold">Signed in as</p>
-            <p className="font-semibold">{userData?.displayName}</p>
-          </DropdownItem>
-          <DropdownItem key="profile">
-            <Link
-              href="/myprofil
-            "
-              as="a"
-            >
-              Profil
-            </Link>
-          </DropdownItem>
-
-          <DropdownItem
-            key="logout"
-            onClick={() => {
-              signOut();
-            }}
-            color="danger"
+    <div className="flex items-center mr-10 lg:ml-0 relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)} // zmienia stan dropdown po kliknięciu
+        className="rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+        id="options-menu-button"
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        <span className="flex items-center justify-between w-full">
+          <span className="flex items-center justify-between min-w-0 space-x-3">
+            <img
+              className="flex-shrink-0 object-cover bg-gray-300 rounded-full w-7 h-7"
+              src={userData?.avatarUrl}
+              alt=""
+            />
+          </span>
+          <Arrow />
+        </span>
+      </button>
+      {/* Dropdown menu */}
+      <div
+        className={`${
+          isOpen ? "block" : "hidden"
+        } absolute top-full left-0 mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5`}
+      >
+        <div
+          className="py-1"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="options-menu-button"
+        >
+          <a
+            href="#"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-nowrap "
+            role="menuitem"
           >
-            Wyloguj się
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-    </NavbarContent>
+            Your Profile
+          </a>
+          <a
+            href="#"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            role="menuitem"
+          >
+            Settings
+          </a>
+          <a
+            href="#"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            role="menuitem"
+          >
+            Sign out
+          </a>
+        </div>
+      </div>
+    </div>
   );
 };

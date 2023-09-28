@@ -3,8 +3,8 @@ import React from "react";
 
 export const Header = () => {
   return (
-    <div>
+    <header className="">
       <Nav />
-    </div>
+    </header>
   );
 };

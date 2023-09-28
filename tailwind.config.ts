@@ -7,6 +7,8 @@ const config: Config = {
     "./src/Components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite-react/**/*.js",
+
   ],
   theme: {
     extend: {
@@ -17,6 +19,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), nextui()],
+  plugins: [require("@tailwindcss/forms"), nextui(),    require("flowbite/plugin")
+],
 };
 export default config;

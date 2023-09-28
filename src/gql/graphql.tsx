@@ -52,7 +52,7 @@ export type GetUserByIdQuery = { __typename?: 'query_root', user?: { __typename?
 export type GetAllPostsinSubCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllPostsinSubCategoryQuery = { __typename?: 'query_root', Sub_category: Array<{ __typename?: 'Sub_category', name: string, slug: string, Posts: Array<{ __typename?: 'Posts', content: string, dislikes: any, likes: any, title: string, slug: string, img: string }> }> };
+export type GetAllPostsinSubCategoryQuery = { __typename?: 'query_root', Category: Array<{ __typename?: 'Category', name: string, slug: string, id: any, Sub_category: Array<{ __typename?: 'Sub_category', name: string, slug: string, id: any, Posts: Array<{ __typename?: 'Posts', content: string, dislikes: any, img: string, likes: any, slug: string, title: string }> }> }> };
 
 
 export const GetCategoryDocument = gql`
@@ -344,16 +344,22 @@ export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLaz
 export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
 export const GetAllPostsinSubCategoryDocument = gql`
     query GetAllPostsinSubCategory {
-  Sub_category {
+  Category {
     name
     slug
-    Posts {
-      content
-      dislikes
-      likes
-      title
+    id
+    Sub_category {
+      name
       slug
-      img
+      id
+      Posts {
+        content
+        dislikes
+        img
+        likes
+        slug
+        title
+      }
     }
   }
 }
